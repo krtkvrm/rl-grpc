@@ -22,7 +22,7 @@ def get_action_space(env):
     return list(range(env.action_space.n))
 
 def finalize(env):
-    api.update_submission_status("finished")
+    # api.update_submission_status("finished")
     print("Final Score: {0}".format(env.score))
     print("Stopping Evaluator")
     exit(0)
@@ -89,13 +89,13 @@ class evaluator_environment:
         self.score += 1
 
 env = evaluator_environment()
-api = EvalAI_Communication(
-    AUTH_TOKEN = os.environ.get("AUTH_TOKEN"),
-    DJANGO_SERVER = os.environ.get("DJANGO_SERVER", "localhost"),
-    DJANGO_SERVER_PORT = os.environ.get("DJANGO_SERVER_PORT", "8000"),
-    CHALLENGE_PK = os.environ.get("CHALLENGE_PK", "1"),
-    SUBMISSION_PK = os.environ.get("SUBMISSION_PK", "1"),
-)
+# api = EvalAI_Communication(
+#     AUTH_TOKEN = os.environ.get("AUTH_TOKEN"),
+#     DJANGO_SERVER = os.environ.get("DJANGO_SERVER", "localhost"),
+#     DJANGO_SERVER_PORT = os.environ.get("DJANGO_SERVER_PORT", "8000"),
+#     CHALLENGE_PK = os.environ.get("CHALLENGE_PK", "1"),
+#     SUBMISSION_PK = os.environ.get("SUBMISSION_PK", "1"),
+# )
 
 class Environment(evaluation_pb2_grpc.EnvironmentServicer):
 
