@@ -44,7 +44,7 @@ def finalize(env):
     api.update_submission_status(submission_data, challenge_pk)
     exit(0)
 
-logger = logging.getLogger(__name__)
+# logger = logging.getLogger(__name__)
 
 
 URLS = {
@@ -89,9 +89,10 @@ class EvalAI_Interface:
             )
             # response.raise_for_status()
         except requests.exceptions.RequestException:
-            logger.info(
-                "The worker is not able to establish connection with EvalAI"
-            )
+            # logger.info(
+            #     "The worker is not able to establish connection with EvalAI"
+            # )
+            print("The worker is not able to establish connection with EvalAI")
             raise
         print(response.text)
         return response.json()
