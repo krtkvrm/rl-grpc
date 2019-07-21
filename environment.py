@@ -18,6 +18,7 @@ BODY = os.environ.get("BODY")
 print(BODY)
 BODY = BODY.replace("'", '"')
 print(json.loads(BODY))
+BODY = json.loads(BODY)
 challenge_pk = BODY["challenge_pk"]
 phase_pk = BODY["phase_pk"]
 submission_pk = BODY["submission_pk"]
