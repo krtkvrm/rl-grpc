@@ -173,10 +173,10 @@ class evaluator_environment:
 
 env = evaluator_environment()
 api = EvalAI_Interface(
-    AUTH_TOKEN = os.environ.get("AUTH_TOKEN", "x")
-    DJANGO_SERVER = os.environ.get("DJANGO_SERVER", "x")
-    DJANGO_SERVER_PORT = os.environ.get("DJANGO_SERVER_PORT", "443")
-    QUEUE_NAME = os.environ.get("QUEUE_NAME", "")
+    AUTH_TOKEN = os.environ.get("AUTH_TOKEN", "x"),
+    DJANGO_SERVER = os.environ.get("DJANGO_SERVER", "x"),
+    DJANGO_SERVER_PORT = os.environ.get("DJANGO_SERVER_PORT", "443"),
+    QUEUE_NAME = os.environ.get("QUEUE_NAME", ""),
 )
 
 class Environment(evaluation_pb2_grpc.EnvironmentServicer):
