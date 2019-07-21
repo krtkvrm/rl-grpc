@@ -4,6 +4,7 @@ import pickle
 import sys
 import os
 import requests
+import json
 
 from concurrent import futures
 import time
@@ -117,6 +118,11 @@ class Environment(evaluation_pb2_grpc.EnvironmentServicer):
 
 server = grpc.server(futures.ThreadPoolExecutor(max_workers = 10))
 evaluation_pb2_grpc.add_EnvironmentServicer_to_server(Environment(), server)
+
+BODY = os.environ.get("BODY")
+print(BODY)
+BODY = BODY.replace("'", '"')
+print(json.loads(BODY))
 
 
 print('Starting server. Listening on port 8080.')

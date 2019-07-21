@@ -3,7 +3,12 @@ import evaluation_pb2
 import evaluation_pb2_grpc
 import gym
 import pickle
+
+
 import time
+
+
+time.sleep(60)
 
 channel = grpc.insecure_channel(
     'localhost:8080',)
