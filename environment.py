@@ -14,14 +14,24 @@ import time
 import evaluation_pb2
 import evaluation_pb2_grpc
 
-BODY = os.environ.get("BODY")
-print(BODY)
-BODY = BODY.replace("'", '"')
-print(json.loads(BODY))
-BODY = json.loads(BODY)
-challenge_pk = BODY["challenge_pk"]
-phase_pk = BODY["phase_pk"]
-submission_pk = BODY["submission_pk"]
+# BODY = os.environ.get("BODY")
+# print(BODY)
+# BODY = BODY.replace("'", '"')
+# print(json.loads(BODY))
+# BODY = json.loads(BODY)
+# challenge_pk = BODY["challenge_pk"]
+# phase_pk = BODY["phase_pk"]
+# submission_pk = BODY["submission_pk"]
+
+
+
+#####
+
+
+challenge_pk=1
+phase_pk=1
+submission_pk=10
+####
 
 def pack_for_grpc(entity):
     return pickle.dumps(entity)
@@ -41,7 +51,17 @@ def finalize(env):
         "submission_status": "finished",
         "submission": submission_pk,
     }
-    api.update_submission_status(submission_data, challenge_pk)
+    # api.update_submission_status(submission_data, challenge_pk)
+    submission_data = {
+        "challenge_phase": phase_pk,
+        "submission":submission_pk,
+        "stdout": "ABC",
+        "stderr": "XYZ",
+        "submission_status": "FINISHED",
+        "result": json.dumps([{'split': 'split1', 'show_to_participant': True, 'accuracies': {'score': env.score}}])
+    }
+    print(submission_data)
+    api.update_submission_data(submission_data, challenge_pk)
     exit(0)
 
 # logger = logging.getLogger(__name__)
@@ -145,7 +165,7 @@ class EvalAI_Interface:
         response = self.make_request(url, "GET")
         return response
 
-    def update_submission_data(self, data, challenge_pk, submission_pk):
+    def update_submission_data(self, data, challenge_pk):
         url = URLS.get("update_submission_data").format(challenge_pk)
         url = self.return_url_per_environment(url)
         response = self.make_request(url, "PUT", data=data)
@@ -175,9 +195,9 @@ class evaluator_environment:
 
 env = evaluator_environment()
 api = EvalAI_Interface(
-    AUTH_TOKEN = os.environ.get("AUTH_TOKEN", "x"),
-    DJANGO_SERVER = os.environ.get("DJANGO_SERVER", "x"),
-    DJANGO_SERVER_PORT = os.environ.get("DJANGO_SERVER_PORT", "443"),
+    AUTH_TOKEN = os.environ.get("AUTH_TOKEN", "97cd1116ed461b25154f191392cd36cd318f3cd6"),
+    DJANGO_SERVER = os.environ.get("DJANGO_SERVER", "http://localhost"),
+    DJANGO_SERVER_PORT = os.environ.get("DJANGO_SERVER_PORT", "8000"),
     QUEUE_NAME = os.environ.get("QUEUE_NAME", ""),
 )
 
@@ -199,6 +219,10 @@ class Environment(evaluation_pb2_grpc.EnvironmentServicer):
             "current_score": env.score,
         }))
 
+
+# finalize(400)
+
+# NOW COMMENT
 server = grpc.server(futures.ThreadPoolExecutor(max_workers = 10))
 evaluation_pb2_grpc.add_EnvironmentServicer_to_server(Environment(), server)
 
