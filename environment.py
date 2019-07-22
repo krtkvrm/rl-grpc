@@ -170,6 +170,7 @@ class EvalAI_Interface:
         url = URLS.get("update_submission_data").format(challenge_pk)
         url = self.return_url_per_environment(url)
         response = self.make_request(url, "PUT", data=data)
+        print(response.text)
         return response
 
     def update_submission_status(self, data, challenge_pk):
