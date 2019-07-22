@@ -14,14 +14,14 @@ import time
 import evaluation_pb2
 import evaluation_pb2_grpc
 
-# BODY = os.environ.get("BODY")
-# print(BODY)
-# BODY = BODY.replace("'", '"')
-# print(json.loads(BODY))
-# BODY = json.loads(BODY)
-# challenge_pk = BODY["challenge_pk"]
-# phase_pk = BODY["phase_pk"]
-# submission_pk = BODY["submission_pk"]
+BODY = os.environ.get("BODY")
+print(BODY)
+BODY = BODY.replace("'", '"')
+print(json.loads(BODY))
+BODY = json.loads(BODY)
+challenge_pk = BODY["challenge_pk"]
+phase_pk = BODY["phase_pk"]
+submission_pk = BODY["submission_pk"]
 
 
 
@@ -29,8 +29,8 @@ import evaluation_pb2_grpc
 
 
 challenge_pk=1
-phase_pk=1
-submission_pk=10
+# phase_pk=1
+# submission_pk=10
 ####
 
 def pack_for_grpc(entity):
