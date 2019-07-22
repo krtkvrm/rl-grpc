@@ -58,7 +58,7 @@ def finalize(env):
         "stdout": "ABC",
         "stderr": "XYZ",
         "submission_status": "FINISHED",
-        "result": json.dumps([{'split': 'train_sp', 'show_to_participant': True, 'accuracies': {'score': env.score}}])
+        "result": json.dumps([{'split': 'train_split', 'show_to_participant': True, 'accuracies': {'score': env.score}}])
     }
     print("SUBMISSION DATA: {0}".format(submission_data))
     api.update_submission_data(submission_data, challenge_pk)
